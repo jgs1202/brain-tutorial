@@ -543,8 +543,8 @@ body {
 
 .app {
   margin: auto;
-  width: 80%;
-  height: 80%;
+  width: 75%;
+  height: 75%;
   font-family: 'serif';
 }
 

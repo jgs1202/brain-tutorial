@@ -151,46 +151,38 @@ export default {
       if (event.keyCode == '13') {
         var that = this
         // console.log(that.graph)
+        var ans = 0
         if (that.choice.length == 1) {
-          that.time = Date.now() - that.startTime
-          const params = new URLSearchParams()
-          params.set('userName', this.$parent.userName)
-          params.set('gender', this.$parent.gender)
-          params.set('age', this.$parent.age)
-          params.set('layout', that.graph.type)
-          params.set('set', that.file)
-          params.set('groupSize', that.graph.groupSize)
-          params.set('file', '' + that.dataNum + '.json')
+          ans = that.graph.linkMax
           if (that.choice[0] == that.graph.linkMax){
             that.answer = 1
           } else {
             that.answer = 0
           }
-          console.log('the answer is')
-          console.log(that.answer)
-          // console.log(that.answer, that.graph.linkMax, that.choice[0])
-          params.set('answer', that.answer)
-          params.set('time', that.time)
-          // params.set('choice1', that.choice[1])
-          const url = `http://127.0.0.1:5000/data/${params.toString()}`
-          axios.get(url)
-            .then(res => {
-              // console.log(res.data)
-            })
+        }
+        console.log(ans)
+          
+        let afterCheck = function(){
+          document.removeEventListener('keyup', afterCheck)
           that.choice = []
-          d3.selectAll('rect').attr('stroke-width', 0.6).attr('stroke', 'black')
+          // d3.selectAll('rect').attr('stroke-width', 0.6).attr('stroke', 'black')
           d3.selectAll('circle').remove()
           d3.selectAll('line').remove()
           d3.selectAll('rect').remove()
           // that.graph = 0
           // d3.select('svg').remove()
           that.restart()
-          // console.log('boxes')
-          // } else {
-          //   swal('Choose 1 boxes.')
-          // }
         }
-      }
+
+        d3.selectAll('rect')
+          .each(function(d, i) {
+            if ( d.x == that.graph.groups[ans].x && d.y == that.graph.groups[ans].y && d.dx == that.graph.groups[ans].dx && d.dy == that.graph.groups[ans].dy){
+              var selection = d3.select(this)
+              selection.attr('stroke-width', 3).attr('stroke', 'orange')
+              document.addEventListener('keyup', afterCheck, false)
+            }
+          })
+        }
     },
     reLinks: function() {
       var that = this;

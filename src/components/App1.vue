@@ -14,7 +14,7 @@
         </div>
       </el-aside> -->
       <el-main> 
-        {{file}} - {{dataNum}} <br><br>
+        {{file}} - {{fileNum}} <br><br>
         <div class="svg-container" :style="{width: settings.width + '%'}">
           <svg id="svg" pointer-events="all" viewBox="0 0 960 600" preserveAspectRatio="xMinYMin meet">
       <g id="nodes">{{nodes}}</g>
@@ -92,12 +92,12 @@ export default {
         that.dataNum = 0
         that.fileNum += 1
       }
-      if ((that.fileNum == 3) && (that.level == 'low/')){
+      if ((that.fileNum == 2) && (that.level == 'low/')){
         that.fileNum = 0
         that.level = 'high/'
       }
       console.log('num is ' + '' + that.dataNum)
-      if ((that.fileNum == 3) && (that.level == 'high/')) {
+      if ((that.fileNum == 2) && (that.level == 'high/')) {
         this.$parent.current += 1
 
         this.$parent.already = 1
